@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.rnasystems.projects.ipalarm</groupId>
+	<artifactId>ip-alarm</artifactId>
+	<version>1.0.0</version>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>com.linet.api.swing</groupId>
+			<artifactId>linet-swing</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+
+		<resources>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+
+		</resources>
+
+		<plugins>
+
+
+			<!--Add : lib/xxxxx.jar to manifest -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.rnasystems.projects.translator.main.Main</mainClass>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib</classpathPrefix>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<!--Copy jar libs to target -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
